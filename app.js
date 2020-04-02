@@ -41,7 +41,7 @@ function updateDom(providedData = data) {
   providedData.forEach(item => {
     const element = document.createElement('div');
     element.classList.add('person');
-    element.innerHTML = `<strong>${item.name}</strong>$${formatMoney(
+    element.innerHTML = `<strong>${item.name}</strong>${formatMoney(
       item.money
     )}`;
     main.appendChild(element);
@@ -50,7 +50,7 @@ function updateDom(providedData = data) {
 
 // Format number as money
 function formatMoney(number) {
-  return number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); // 12,345.67
+  return    '$'+number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); // 12,345.67
 }
 
 // Double the money
@@ -72,6 +72,15 @@ function sortByRichest() {
 function showMillionair(){
  data=data.filter(item=>item.money>1000000)
     updateDom()
+}
+
+// Calculate Wealth
+function calculateWealth(){
+    const wealth = data.reduce((a,b)=>(a+=b.money),0)
+    
+    const wealthEl = document.createElement('div');
+    wealthEl.innerHTML=`<h3>Total Wealth: <strong>${formatMoney(wealth)}</strong></h3>`
+    main.appendChild(wealthEl);
 }
 
 // Event Listeners
