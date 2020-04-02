@@ -1,7 +1,7 @@
 const main = document.getElementById('main');
 const addUserBtn = document.getElementById('add-user');
 const doubleBtn = document.getElementById('double');
-const showMillionairsBtn = document.getElementById('show-millionairs');
+const showMillionairsBtn = document.getElementById('show-millionaires');
 const sortBtn = document.getElementById('sort');
 const calculateWealthBtn = document.getElementById('calculate-wealth');
 
@@ -21,7 +21,7 @@ async function getRandomUser() {
 
   const newUser = {
     name: `${user.name.first} ${user.name.last}`,
-    money: Math.floor(Math.random() * 1000000)
+    money: Math.floor(Math.random() * 10000000)
   };
   addData(newUser);
 }
@@ -68,7 +68,15 @@ function sortByRichest() {
   updateDom();
 }
 
+// Show millionair
+function showMillionair(){
+ data=data.filter(item=>item.money>1000000)
+    updateDom()
+}
+
 // Event Listeners
 addUserBtn.addEventListener('click', getRandomUser);
 doubleBtn.addEventListener('click', doubleMoney);
 sortBtn.addEventListener('click', sortByRichest);
+showMillionairsBtn.addEventListener('click',showMillionair)
+calculateWealthBtn.addEventListener('click',calculateWealth)
