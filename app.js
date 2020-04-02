@@ -34,31 +34,41 @@ function addData(obj) {
 }
 
 // Update DOM
-function updateDom(providedData=data){
-    // Clear main div
-    main.innerHTML='<h2><strong>Person</strong> Wealth</h2>';
+function updateDom(providedData = data) {
+  // Clear main div
+  main.innerHTML = '<h2><strong>Person</strong> Wealth</h2>';
 
-    providedData.forEach(item=>{
-        const element = document.createElement('div');
-        element.classList.add('person')
-        element.innerHTML=`<strong>${item.name}</strong>$${formatMoney(item.money)}`
-        main.appendChild(element);
-    })
+  providedData.forEach(item => {
+    const element = document.createElement('div');
+    element.classList.add('person');
+    element.innerHTML = `<strong>${item.name}</strong>$${formatMoney(
+      item.money
+    )}`;
+    main.appendChild(element);
+  });
 }
 
 // Format number as money
-function formatMoney(number){
- return (number).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');  // 12,345.67
+function formatMoney(number) {
+  return number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); // 12,345.67
 }
 
-function doubleMoney(){
-    data = data.map((user)=>{
-        return {...user,money:user.money*2}
-    })
-    updateDom()
+// Double the money
+function doubleMoney() {
+  data = data.map(user => {
+    return { ...user, money: user.money * 2 };
+  });
+  updateDom();
+}
+
+// Sort by richest
+function sortByRichest() {
+  console.log('clicked');
+  data.sort((a, b) => b.money - a.money);
+  updateDom();
 }
 
 // Event Listeners
-addUserBtn.addEventListener('click',getRandomUser)
-
-doubleBtn.addEventListener('click',doubleMoney)
+addUserBtn.addEventListener('click', getRandomUser);
+doubleBtn.addEventListener('click', doubleMoney);
+sortBtn.addEventListener('click', sortByRichest);
